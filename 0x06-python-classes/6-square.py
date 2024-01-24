@@ -1,15 +1,24 @@
 #!/usr/bin/python3
 
+"""Define a class Square."""
+
+
 class Square:
-    """Represent a class square."""
+    """Represent a square."""
 
     def __init__(self, size=0, position=(0, 0)):
-        """Initialize the square with a given size."""
+        """Initialize a new square.
+
+        Args:
+            size (int): The size of the new square.
+            position (int, int): The position of the new square.
+        """
         self.size = size
         self.position = position
 
     @property
     def size(self):
+        """Get/set the current size of the square."""
         return (self.__size)
 
     @size.setter
@@ -22,27 +31,30 @@ class Square:
 
     @property
     def position(self):
+        """Get/set the current position of the square."""
         return (self.__position)
 
     @position.setter
     def position(self, value):
         if (not isinstance(value, tuple) or
                 len(value) != 2 or
-                not all(isinstance(num, int) for num in value) or
-                not all(num >= 0 for num in value)):
+                not all(isinstance(num_ber, int) for num_ber in value) or
+                not all(num_ber >= 0 for num_ber in value)):
             raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
 
     def area(self):
+        """Return the current area of the square."""
         return (self.__size * self.__size)
 
     def my_print(self):
+        """Print the square with the # character."""
         if self.__size == 0:
             print("")
             return
 
-        [print("") for x in range(0, self.__position[1])]
-        for x in range(0, self.__size):
-            [print(" ", end="") for y in range(0, self.__position[0])]
-            [print("#", end="") for z in range(0, self.__size)]
+        [print("") for i in range(0, self.__position[1])]
+        for a in range(0, self.__size):
+            [print(" ", end="") for b in range(0, self.__position[0])]
+            [print("#", end="") for c in range(0, self.__size)]
             print("")
