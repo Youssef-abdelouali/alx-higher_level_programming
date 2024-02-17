@@ -68,20 +68,20 @@ class Rectangle:
         if self.__width == 0 or self.__height == 0:
             return ("")
 
-        rect_str = []
+        rec_s = []
         for i in range(self.__height):
-            [rect_str.append(str(self.print_symbol)) for j in range(self.__width)]
+            [rec_s.append(str(self.print_symbol)) for j in range(self.__width)]
             if i != self.__height - 1:
-                rect_str.append("\n")
-        return ("".join(rect_str))
+                rec_s.append("\n")
+        return ("".join(rec_s))
 
     def __repr__(self):
         """Return the string representation of the Rectangle."""
-        rect_str = "Rectangle(" + str(self.__width)
-        rect_str += ", " + str(self.__height) + ")"
-        return (rect_str)
+        rec_s = "Rectangle(" + str(self.__width)
+        rec_s += ", " + str(self.__height) + ")"
+        return (rec_s)
 
     def __del__(self):
         """Print a message for every deletion of a Rectangle."""
         type(self).number_of_instances -= 1
-        print("Rectangle instance is being deleted...")
+        print("Bye rectangle...")
