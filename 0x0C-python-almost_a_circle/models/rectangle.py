@@ -7,7 +7,7 @@ class Rectangle(Base):
     '''A Rectangle class.'''
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        '''Constructor.'''
+        '''Initialize Rectangle instance.'''
         super().__init__(id)
         self.width = width
         self.height = height
@@ -16,84 +16,84 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        '''Width of this rectangle.'''
+        '''Get width of the rectangle.'''
         return self.__width
 
     @width.setter
     def width(self, value):
+        '''Set width of the rectangle.'''
         self.validate_dimension(value, "width")
         self.__width = value
 
     @property
     def height(self):
-        '''Height of this rectangle.'''
+        '''Get height of the rectangle.'''
         return self.__height
 
     @height.setter
     def height(self, value):
+        '''Set height of the rectangle.'''
         self.validate_dimension(value, "height")
         self.__height = value
 
     @property
     def x(self):
-        '''x of this rectangle.'''
+        '''Get x-coordinate of the rectangle.'''
         return self.__x
 
     @x.setter
     def x(self, value):
+        '''Set x-coordinate of the rectangle.'''
         self.validate_coordinate(value, "x")
         self.__x = value
 
     @property
     def y(self):
-        '''y of this rectangle.'''
+        '''Get y-coordinate of the rectangle.'''
         return self.__y
 
     @y.setter
     def y(self, value):
+        '''Set y-coordinate of the rectangle.'''
         self.validate_coordinate(value, "y")
         self.__y = value
 
     def validate_dimension(self, value, name):
-        '''Method for validating dimensions.'''
+        '''Validate dimensions (width/height).'''
         if not isinstance(value, int):
-            raise TypeError(f"{name} must be an integer")
+            raise TypeError(f"{name.capitalize()} must be an integer.")
         if value <= 0:
-            raise ValueError(f"{name} must be a positive integer")
+            raise ValueError(f"{name.capitalize()} must be a positive integer.")
 
     def validate_coordinate(self, value, name):
-        '''Method for validating coordinates.'''
+        '''Validate coordinates (x/y).'''
         if not isinstance(value, int):
-            raise TypeError(f"{name} must be an integer")
+            raise TypeError(f"{name.capitalize()} coordinate must be an integer.")
+        if value < 0:
+            raise ValueError(f"{name.capitalize()} coordinate must be a non-negative integer.")
 
     def area(self):
-        '''Computes area of this rectangle.'''
+        '''Compute the area of the rectangle.'''
         return self.width * self.height
 
     def display(self):
-        '''Prints string representation of this rectangle.'''
-        rectangle_representation = '\n'.join([' ' * self.x + '#' * self.width for _ in range(self.y, self.y + self.height)])
-        print(rectangle_representation)
+        '''Print a visual representation of the rectangle.'''
+        print("\n" * self.y + (" " * self.x + "#" * self.width + "\n") * self.height, end="")
 
     def __str__(self):
-        '''Returns string info about this rectangle.'''
-        return f'[{type(self).__name__}] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}'
-
-    def __update(self, **kwargs):
-        '''Internal method that updates instance attributes via keyword args.'''
-        for key, value in kwargs.items():
-            setattr(self, key, value)
+        '''Return a string representation of the rectangle.'''
+        return f"[Rectangle] ({self.id}) {self.x}/{self.y} - {self.width}/{self.height}"
 
     def update(self, *args, **kwargs):
-        '''Updates instance attributes via no-keyword & keyword args.'''
+        '''Update the attributes of the rectangle.'''
         if args:
-            keys = ['id', 'width', 'height', 'x', 'y']
-            for i, value in enumerate(args):
-                setattr(self, keys[i], value)
-        elif kwargs:
-            self.__update(**kwargs)
+            attrs = ['id', 'width', 'height', 'x', 'y']
+            for i, arg in enumerate(args):
+                setattr(self, attrs[i], arg)
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
 
     def to_dictionary(self):
-        '''Returns dictionary representation of this class.'''
-        return {"id": self.id, "width": self.width, "height": self.height,
-                "x": self.x, "y": self.y}
+        '''Return a dictionary representation of the rectangle.'''
+        return {'id': self.id, 'width': self.width, 'height': self.height, 'x': self.x, 'y': self.y}

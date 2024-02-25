@@ -7,41 +7,43 @@ class Square(Rectangle):
     '''A Square class.'''
 
     def __init__(self, size, x=0, y=0, id=None):
-        '''Constructor.'''
+        '''Initialize Square instance.'''
         super().__init__(size, size, x, y, id)
 
     def __str__(self):
-        '''Returns string info about this square.'''
-        return f'[{type(self).__name__}] ({self.id}) {self.x}/{self.y} - {self.width}'
+        '''Return a string representation of the square.'''
+        return f"[Square] ({self.id}) {self.x}/{self.y} - {self.width}"
 
     @property
     def size(self):
-        '''Size of this square.'''
+        '''Get the size of the square.'''
         return self.width
 
     @size.setter
     def size(self, value):
-        '''Sets the size of the square.'''
+        '''Set the size of the square.'''
         self.width = value
         self.height = value
 
     def update(self, *args, **kwargs):
-        '''Updates instance attributes via no-keyword & keyword args.'''
+        '''Update the attributes of the square.'''
         if args:
-            self.__update(*args)
+            self._update_with_args(*args)
         elif kwargs:
-            self.__update(**kwargs)
+            self._update_with_kwargs(**kwargs)
+
+    def _update_with_args(self, *args):
+        '''Update attributes with positional arguments.'''
+        # Map positional arguments to attribute names
+        attrs = ['id', 'size', 'x', 'y']
+        for i, arg in enumerate(args):
+            setattr(self, attrs[i], arg)
+
+    def _update_with_kwargs(self, **kwargs):
+        '''Update attributes with keyword arguments.'''
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def to_dictionary(self):
-        '''Returns dictionary representation of this class.'''
-        return {"id": self.id, "size": self.width, "x": self.x, "y": self.y}
-
-    def __update(self, *args, **kwargs):
-        '''Internal method that updates instance attributes via */**args.'''
-        if args:
-            attrs = ['id', 'size', 'x', 'y']
-            for i, arg in enumerate(args):
-                setattr(self, attrs[i], arg)
-        elif kwargs:
-            for key, value in kwargs.items():
-                setattr(self, key, value)
+        '''Return a dictionary representation of the square.'''
+        return {'id': self.id, 'size': self.size, 'x': self.x, 'y': self.y}
