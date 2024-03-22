@@ -8,7 +8,7 @@
  * Description: This function prints size, content, and hexadecimal representation
  * of the first 10 bytes of a Python bytes object.
  */
-void print_python_bytes_info(PyObject *p)
+void print_python_bytes(PyObject *p)
 {
     char *bytes_str;
     long int size, i, limit;
@@ -50,7 +50,7 @@ void print_python_bytes_info(PyObject *p)
  * elements in the Python list. If an element is a bytes object, it calls
  * print_python_bytes_info to print additional information.
  */
-void print_python_list_info(PyObject *p)
+void print_python_list(PyObject *p)
 {
     long int list_size, i;
     PyListObject *list;
