@@ -32,7 +32,7 @@ def cities_by_state(username, password, database, state_name):
     cursor = db.cursor()
 
     # Prepare SQL query with parameters
-    query = "SELECT cities.id, cities.name FROM cities \
+    query = "SELECT cities.name FROM cities \
              JOIN states ON cities.state_id = states.id WHERE states.name = %s ORDER BY cities.id ASC"
 
     # Execute the query with parameters
@@ -42,8 +42,8 @@ def cities_by_state(username, password, database, state_name):
     results = cursor.fetchall()
 
     # Print results
-    for city in results:
-        print(city)
+    cities = [city[0] for city in results]
+    print(', '.join(cities))
 
     # Close cursor and database connection
     cursor.close()
