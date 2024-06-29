@@ -2,7 +2,7 @@
 const { dict } = require('./101-data');
 
 const sortedDict = {};
-for (let userId in dict) {
+for (const userId in dict) {
   const occurrences = dict[userId];
   if (!sortedDict[occurrences]) {
     sortedDict[occurrences] = [];

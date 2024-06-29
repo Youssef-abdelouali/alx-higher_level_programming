@@ -8,7 +8,7 @@ const num = parseInt(arg);
 
 // Check if the argument can be converted to an integer
 if (!isNaN(num)) {
-  console.log("My number:", num);
+  console.log('My number:', num);
 } else {
-  console.log("Not a number");
+  console.log('Not a number');
 }
