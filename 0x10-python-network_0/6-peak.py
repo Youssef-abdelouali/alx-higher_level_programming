@@ -16,7 +16,8 @@ def find_peak(list_of_integers):
 
         # Check if mid element is a peak
         if (mid == 0 or list_of_integers[mid] >= list_of_integers[mid - 1]) and \
-           (mid == len(list_of_integers) - 1 or list_of_integers[mid] >= list_of_integers[mid + 1]):
+           (mid == len(list_of_integers) - 1 or
+            list_of_integers[mid] >= list_of_integers[mid + 1]):
             return list_of_integers[mid]
 
         # If the left neighbor is greater, then there must be a peak in the left half
