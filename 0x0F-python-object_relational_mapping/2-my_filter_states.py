@@ -1,64 +1,52 @@
 #!/usr/bin/python3
-"""
-Script to display all values in the states table of hbtn_0e_0_usa where name matches the provided argument
-"""
-
 import MySQLdb
 import sys
 
-def search_states(username, password, database, state_name):
-    """
-    Function to search for states matching the provided name in the database
 
-    Args:
-        username (str): MySQL username
-        password (str): MySQL password
-        database (str): Database name
-        state_name (str): State name to search for
+def filter_states(mysql_user, mysql_password, db_name, state_name):
+    """Connect to MySQL dbse and list states matching the given name."""
+    try:
+        # Connect to the MySQL database
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=mysql_user,
+            passwd=mysql_password,
+            db=db_name,
+            charset="utf8"
+        )
 
-    Returns:
-        None
-    """
-    # Connect to MySQL server
-    db = MySQLdb.connect(
-        host='localhost',
-        port=3306,
-        user=username,
-        passwd=password,
-        db=database
-    )
+        # Create a cursor object
+        cur = conn.cursor()
 
-    # Create a cursor object
-    cursor = db.cursor()
+        # Use parameterized queries to prevent SQL injection
+        query = "SELECT * FROM stes WHERE name LIKE %s ORDER BY id ASC"
+        cur.execute(query, (state_name,))
 
-    # Prepare SQL query using format to include user input
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
+        # Fetch all rows
+        query_rows = cur.fetchall()
 
-    # Execute the query
-    cursor.execute(query)
+        # Print each row
+        for row in query_rows:
+            print(row)
 
-    # Fetch all results
-    results = cursor.fetchall()
+    except MySQLdb.Error as err:
+        print(f"Error: {err}")
 
-    # Print results
-    for state in results:
-        print(state)
+    finally:
+        # Close the cursor and connection
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
 
-    # Close cursor and database connection
-    cursor.close()
-    db.close()
 
 if __name__ == "__main__":
-    # Check if correct number of arguments is provided
     if len(sys.argv) != 5:
-        print("Usage: {} <username> <password> <database> <state_name>".format(sys.argv[0]))
-        sys.exit(1)
-
-    # Extract command line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    state_name = sys.argv[4]
-
-    # Call function to search for states
-    search_states(username, password, database, state_name)
+        print("Use:./2-my_flter_sts.py <sql_usr><sql_pwd><db_name> <ste_name>")
+    else:
+        mysql_user = sys.argv[1]
+        mysql_password = sys.argv[2]
+        db_name = sys.argv[3]
+        state_name = sys.argv[4]
+        filter_states(mysql_user, mysql_password, db_name, state_name)

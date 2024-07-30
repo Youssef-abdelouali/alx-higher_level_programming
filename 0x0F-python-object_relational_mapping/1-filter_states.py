@@ -1,59 +1,50 @@
 #!/usr/bin/python3
-"""
-Script to list all states with names starting with 'N' from the database hbtn_0e_0_usa
-"""
-
 import MySQLdb
 import sys
 
-def filter_states(username, password, database):
-    """
-    Function to filter states with names starting with 'N' from the database
 
-    Args:
-        username (str): MySQL username
-        password (str): MySQL password
-        database (str): Database name
+def list_states_with_n(mysql_user, mysql_password, db_name):
+    """Connect to MySQL dbs and list states starting with 'N' ord by id."""
+    try:
+        # Connect to the MySQL database
+        conn = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=mysql_user,
+            passwd=mysql_password,
+            db=db_name,
+            charset="utf8"
+        )
 
-    Returns:
-        None
-    """
-    # Connect to MySQL server
-    db = MySQLdb.connect(
-        host='localhost',
-        port=3306,
-        user=username,
-        passwd=password,
-        db=database
-    )
+        # Create a cursor object
+        cur = conn.cursor()
 
-    # Create a cursor object
-    cursor = db.cursor()
+        # Execute SQL query to find states starting with 'N'
+        cur.execute("SELECT * FROM sts WHERE name LIKE 'N%' ORDER BY id ASC")
 
-    # Execute the query to select states with names starting with 'N'
-    cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
+        # Fetch all rows
+        query_rows = cur.fetchall()
 
-    # Fetch all results
-    results = cursor.fetchall()
+        # Print each row
+        for row in query_rows:
+            print(row)
 
-    # Print results
-    for state in results:
-        print(state)
+    except MySQLdb.Error as err:
+        print(f"Error: {err}")
 
-    # Close cursor and database connection
-    cursor.close()
-    db.close()
+    finally:
+        # Close the cursor and connection
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
 
 if __name__ == "__main__":
-    # Check if correct number of arguments is provided
     if len(sys.argv) != 4:
-        print("Usage: {} <username> <password> <database>".format(sys.argv[0]))
-        sys.exit(1)
-
-    # Extract command line arguments
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-
-    # Call function to filter states
-    filter_states(username, password, database)
+        print("Usage: ./1-fitr_sttes.py <mysql_user> <mysql_pswd> <db_name>")
+    else:
+        mysql_user = sys.argv[1]
+        mysql_password = sys.argv[2]
+        db_name = sys.argv[3]
+        list_states_with_n(mysql_user, mysql_password, db_name)
