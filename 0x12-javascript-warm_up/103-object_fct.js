@@ -10,6 +10,12 @@ const myObject = {
 
 console.log(myObject);
 
+// Add the incr function
+myObject.incr = function () {
+  this.value++;
+};
+
+// Call incr and print the object
 myObject.incr();
 console.log(myObject);
 
