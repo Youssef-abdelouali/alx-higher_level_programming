@@ -1,17 +1,12 @@
 #!/usr/bin/node
 
-// Extract the first argument from process.argv
-const arg = process.argv[2];
+const args = process.argv.slice(2);
+const x = parseInt(args[0], 10);
 
-// Convert the argument to an integer using parseInt
-const num = parseInt(arg);
-
-// Check if the argument can be converted to a positive integer
-if (!isNaN(num) && num > 0) {
-  // Loop x times and print "C is fun" each time
-  for (let i = 0; i < num; i++) {
+if (isNaN(x)) {
+  console.log('Missing number of occurrences');
+} else if (x > 0) {
+  for (let i = 0; i < x; i++) {
     console.log('C is fun');
   }
-} else {
-  console.log('Missing number of occurrences');
 }
