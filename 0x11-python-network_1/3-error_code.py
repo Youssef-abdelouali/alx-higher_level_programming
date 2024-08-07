@@ -7,6 +7,7 @@ import urllib.request
 import urllib.error
 import sys
 
+
 def main():
     """
     Method that manages urllib.error.HTTPError exceptions and
@@ -22,6 +23,7 @@ def main():
         print("Error code: {}".format(e.code))
     except urllib.error.URLError as e:
         print("Error code: {}".format(e.code))
+
 
 if __name__ == "__main__":
     main()
