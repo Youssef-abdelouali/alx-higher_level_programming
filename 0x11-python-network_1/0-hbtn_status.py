@@ -1,22 +1,20 @@
 #!/usr/bin/python3
 """
-Fetches the status of a URL using urllib and prints the response details.
+A script to retrieve the content from https://intranet.hbtn.io/status
 """
 import urllib.request
 
-def fetch_status():
+def main():
     """
-    Fetches and displays the status of a given URL.
+    Function to display the response from a specified URL.
     """
-    url = "https://alx-intranet.hbtn.io/status"
+    url = 'https://intranet.hbtn.io/status'
     with urllib.request.urlopen(url) as response:
-        body = response.read()
-    
-    # Print response details in the specified format
-    print("Body response:")
-    print(f"    - type: {type(body)}")
-    print(f"    - content: {body}")
-    print(f"    - utf8 content: {body.decode('utf-8')}")
+        html = response.read()
+        print('Response Body:')
+        print('\t- Type: {}'.format(type(html)))
+        print('\t- Content: {}'.format(html))
+        print('\t- UTF-8 Content: {}'.format(html.decode('utf8')))
 
 if __name__ == "__main__":
-    fetch_status()
+    main()
