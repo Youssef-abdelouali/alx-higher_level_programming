@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-A script to fetch and display the response from https://alx-intranet.hbtn.io/status
+A script to fetch response from https://alx-intranet.hbtn.io/status
 """
 import urllib.request
 
