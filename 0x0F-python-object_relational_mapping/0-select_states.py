@@ -6,6 +6,7 @@ import sys
 def list_states(mysql_user, mysql_password, db_name):
     """Connect to MySQL database and list all states ordered by id."""
     try:
+
         # Connect to the MySQL database
         conn = MySQLdb.connect(
             host="localhost",
@@ -43,7 +44,8 @@ def list_states(mysql_user, mysql_password, db_name):
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: ./0-sele_stes.py <mysql_user> <mysql_pswrd> <db_name>")
-    else:
+   
+   else:
         mysql_user = sys.argv[1]
         mysql_password = sys.argv[2]
         db_name = sys.argv[3]
